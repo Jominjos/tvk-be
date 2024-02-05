@@ -7,7 +7,13 @@ import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+const cors = require("cors");
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://tvk4tn.netlify.app/"],
+    credentials: true,
+  })
+);
 dotenv.config();
 
 mongoose
