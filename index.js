@@ -7,7 +7,6 @@ import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
 import cors from "cors";
 
 dotenv.config();
@@ -24,19 +23,23 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
-
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://tvk4tn.netlify.app/",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
 });
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://tvk4tn.netlify.app/"],
-    credentials: true,
-  })
-);
+
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
