@@ -28,7 +28,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://tvk4tn.netlify.app/",
+      "https://tvk4tn.netlify.app",
     ],
     credentials: true,
   })
