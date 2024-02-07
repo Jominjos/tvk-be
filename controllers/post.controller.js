@@ -2,17 +2,26 @@ import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const create = async (req, res, next) => {
-  if (!req.user.isAdmin) {
-    return next(errorHandler(403, "You are not allowed to create a post"));
-  }
+  //console.log(req);
+  // if (!req.user.isAdmin) {
+  //   return next(errorHandler(403, "You are not allowed to create a post"));
+  // }
   if (!req.body.title || !req.body.content) {
     return next(errorHandler(400, "Please provide all required fields"));
   }
-  const slug = req.body.title
+  const currentDate = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+  const currentTime = new Date().toLocaleTimeString("en-US", { hour12: false }); // Get current time in HH:MM:SS format
+  // const slug = req.body.title
+  //   .split(" ")
+  //   .join("-")
+  //   .toLowerCase()
+  //   .replace(/[^a-zA-Z0-9-]/g, "");
+  //
+  const slug = `${req.body.title
     .split(" ")
     .join("-")
     .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, "");
+    .replace(/[^a-zA-Z0-9-]/g, "")}-${currentDate}-${currentTime}`;
   const newPost = new Post({
     ...req.body,
     slug,
